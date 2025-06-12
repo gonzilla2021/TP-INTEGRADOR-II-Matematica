@@ -22,7 +22,44 @@ def suma_total(dni):
         suma += int(num)
     return suma
 
-#COMIENZO DE PROGRAMA
+########### OPERACIONES CON CONJUNTOS ###################################
+
+def union_dnis(DNIs):
+    """Realiza la unión de todos los dígitos únicos de los DNIs registrados"""
+    conjunto_union = set()
+    for dni in DNIs:
+        conjunto_union.update(dni)  # Agrega todos los dígitos del DNI al conjunto
+    return sorted(conjunto_union)  
+
+
+def interseccion_dnis(DNIs):
+    """Calcula los dígitos comunes en todos los DNIs usando el operador &"""
+    if not DNIs:
+        return []  #Si no hay DNIs, retorna una lista vacía (esto evita errores con listas vacías)
+    
+    # Convertimos cada DNI a un conjunto de sus dígitos
+    conjuntos = [set(dni) for dni in DNIs]
+    
+    # Iniciamos con el primer conjunto
+    resultado = conjuntos[0]
+    
+    # Aplicamos intersección con cada conjunto siguiente usando &
+    for conjunto in conjuntos[1:]:
+        resultado = resultado & conjunto  # Operador & aquí
+        if not resultado:  # Si no hay elementos comunes, terminamos
+            break
+    
+    return sorted(resultado)
+
+
+def diferencia(DNIs):
+    return
+
+def diferencia_simetrica(DNIs):
+    return
+
+
+#######################COMIENZO DE PROGRAMA#############################################
 def main():
     DNIs = []
     
@@ -39,6 +76,11 @@ def main():
         print(f"Suma total de los dígitos: {suma_total(item)}")
         print(f"Dígitos únicos: {conjuntos_unicos(item)}")
         print(f"Frecuencia de dígitos: {conteo_frecuencia(item)}") 
+    # Mostrar unión de todos los DNIs
+    if len(DNIs) > 1:
+        print("\n=== OPERACIONES CON LOS CONJUNTOS DE TODOS LOS DNIs ===")
+        print(f"UNION= {union_dnis(DNIs)}") #UNION
+        print(f"Intersección de dígitos comunes: {interseccion_dnis(DNIs)}")#INTERSECCION
 
 
 # Ejecutar programa principal
