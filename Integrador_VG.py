@@ -45,18 +45,39 @@ def interseccion_dnis(DNIs):
     
     # Aplicamos intersección con cada conjunto siguiente usando &
     for conjunto in conjuntos[1:]:
-        resultado = resultado & conjunto  # Operador & aquí
+        resultado = resultado & conjunto  # Operador & (interseccion)
         if not resultado:  # Si no hay elementos comunes, terminamos
             break
     
     return sorted(resultado)
 
 
-def diferencia(DNIs):
-    return
+def diferencia_dnis(DNIs):
+    """Calcula los dígitos únicos que están en el primer DNI pero no en los demás"""
+    if len(DNIs) < 2:
+        return []
+    
+    # Convertimos cada DNI a un conjunto
+    conjuntos = [set(dni) for dni in DNIs]
+    
+    # Diferencia entre el primer DNI y la unión de los demás
+    otros_dnis = set().union(*conjuntos[1:])
+    return sorted(conjuntos[0] - otros_dnis)
 
-def diferencia_simetrica(DNIs):
-    return
+def diferencia_simetrica_dnis(DNIs):
+    """Calcula los dígitos que están en un DNI pero no en todos (diferencia simétrica)"""
+    if len(DNIs) < 2:
+        return []
+    
+    # Convertimos cada DNI a un conjunto
+    conjuntos = [set(dni) for dni in DNIs]
+    
+    # Diferencia simétrica entre todos
+    resultado = set()
+    for conjunto in conjuntos:
+        resultado ^= conjunto  # Operador de diferencia simétrica
+        
+    return sorted(resultado)
 
 
 #######################COMIENZO DE PROGRAMA#############################################
@@ -81,6 +102,17 @@ def main():
         print("\n=== OPERACIONES CON LOS CONJUNTOS DE TODOS LOS DNIs ===")
         print(f"UNION= {union_dnis(DNIs)}") #UNION
         print(f"Intersección de dígitos comunes: {interseccion_dnis(DNIs)}")#INTERSECCION
+
+        #########################################################################################
+        # Recolección de DNIs
+    DNIs = []
+        
+    cantidad = int(input("Ingrese la cantidad de documentos que desea registrar: "))
+    for i in range(1, cantidad+1):
+        tmp_dni = input(f"Ingrese el DNI número {i}: ")
+        DNIs.append(tmp_dni)
+        print(f"Dígitos únicos del primer DNI: {diferencia_dnis(DNIs)}")#DIFERENCIA
+        print(f"Diferencia simétrica entre todos: {diferencia_simetrica_dnis(DNIs)}")#DIFERENCIA SIMETRICA
 
 
 # Ejecutar programa principal
