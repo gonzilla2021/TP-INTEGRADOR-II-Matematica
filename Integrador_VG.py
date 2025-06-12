@@ -78,6 +78,38 @@ def diferencia_simetrica_dnis(DNIs):
         resultado ^= conjunto  # Operador de diferencia simétrica
         
     return sorted(resultado)
+#######################################################################################
+
+def es_bisiesto(años_nacimiento):
+    for año in años_nacimiento:
+        año=int(año)
+        if año % 4 == 0:
+            if año % 100 == 0 and año % 400 == 0:
+                print("Tenemos un año especial")
+        else:
+            continue
+
+
+def par_impar_2000(años_nacimiento):
+    count = 0   
+    for año in años_nacimiento:
+        año=int(año)
+        if año % 2 == 0:
+            print(f"El año {año} es par")
+        else:
+            print(f"El año {año} es impar")
+
+        if año > 2000:
+            count += 1
+    if count == len(años_nacimiento):
+        print("Grupo Z")
+
+def prod_cartesiano(años_nacimiento):
+    producto_años = []
+    for año in años_nacimiento:
+        año = int(año)
+        producto_años.append(año*(2025-año))
+    print("El producto cartesiano entre años de nacimiento y edades es:\n" f"{producto_años}") 
 
 
 #######################COMIENZO DE PROGRAMA#############################################
@@ -101,18 +133,25 @@ def main():
     if len(DNIs) > 1:
         print("\n=== OPERACIONES CON LOS CONJUNTOS DE TODOS LOS DNIs ===")
         print(f"UNION= {union_dnis(DNIs)}") #UNION
-        print(f"Intersección de dígitos comunes: {interseccion_dnis(DNIs)}")#INTERSECCION
+        print(f"INTERSECCION: {interseccion_dnis(DNIs)}")#INTERSECCION
 
         #########################################################################################
-        # Recolección de DNIs
+        # Recolección de DNIs Para la diferencia y diferencia simetrica
     DNIs = []
         
     cantidad = int(input("Ingrese la cantidad de documentos que desea registrar: "))
     for i in range(1, cantidad+1):
         tmp_dni = input(f"Ingrese el DNI número {i}: ")
         DNIs.append(tmp_dni)
-        print(f"Dígitos únicos del primer DNI: {diferencia_dnis(DNIs)}")#DIFERENCIA
-        print(f"Diferencia simétrica entre todos: {diferencia_simetrica_dnis(DNIs)}")#DIFERENCIA SIMETRICA
+        print(f"Diferencia entre conjuntos: {diferencia_dnis(DNIs)}")#DIFERENCIA
+        print(f"Diferencia simétrica entre conjuntos: {diferencia_simetrica_dnis(DNIs)}")#DIFERENCIA SIMETRICA
+
+
+    anios= input("Ingrese años de nacimiento: ").split()
+
+    par_impar_2000(anios) 
+    es_bisiesto(anios)
+    prod_cartesiano(anios)  
 
 
 # Ejecutar programa principal
